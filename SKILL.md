@@ -2,7 +2,7 @@
 name: marketplace-suspension-recovery
 description: Emergency Plan of Action (POA) generator for Amazon and Shopify sellers facing account suspension, Section 3 deactivation, IP strikes, or payout holds. Replaces $5,000 consultant fees with forensic, platform-compliant appeals.
 version: 1.0.0
-author: Antigravity Protection Platform
+author: Tcha Brand Protection & Security Platform
 tags:
   - amazon-fba
   - shopify-risk

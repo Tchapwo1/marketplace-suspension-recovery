@@ -4,8 +4,8 @@ name: marketplace-suspension-recovery
 displayName: Marketplace Account & ASIN Suspension Recovery
 version: 1.0.0
 description: Free, compliance-grade Plan of Action (POA) generator for Amazon and Shopify sellers facing account suspension, Section 3 deactivations, IP strikes, or payout holds.
-repository: https://github.com/your-org/marketplace-suspension-recovery
-author: Antigravity Protection Platform
+repository: https://github.com/Tchapwo1/marketplace-suspension-recovery
+author: Tcha Brand Protection & Security Platform
 license: MIT
 tags:
   - amazon-fba
