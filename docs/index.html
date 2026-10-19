@@ -574,7 +574,7 @@
     <div class="header-links">
       <button class="btn-teaser-nav" onclick="openVideoModal()">🎬 Watch Teaser Reel (12s)</button>
       <a href="https://smithery.ai/skills" target="_blank">Smithery.ai Registry ↗</a>
-      <a href="https://github.com" target="_blank">GitHub ↗</a>
+      <a href="https://github.com/Tchapwo1/marketplace-suspension-recovery" target="_blank">GitHub Repo ↗</a>
     </div>
   </header>
 
@@ -753,7 +753,7 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
   <div class="modal-overlay" id="videoModal">
     <div class="video-modal-box">
       <button class="video-close-btn" onclick="closeVideoModal()">✕</button>
-      <iframe src="../video-teaser/preview.html" class="video-frame-container" title="Tcha Protection Teaser Video"></iframe>
+      <iframe src="./video-teaser/preview.html" class="video-frame-container" title="Tcha Protection Teaser Video"></iframe>
     </div>
   </div>
 
@@ -762,8 +762,8 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
     <div style="margin-top: 8px;">
       <a href="https://smithery.ai/skills" target="_blank">Smithery Registry</a> •
       <a href="https://agentskills.io" target="_blank">agentskills.io Standard</a> •
-      <a href="https://github.com" target="_blank">GitHub Repository</a> •
-      <a href="#">Tcha Privacy & Terms</a>
+      <a href="https://github.com/Tchapwo1/marketplace-suspension-recovery" target="_blank">Skill GitHub Repo</a> •
+      <a href="https://github.com/Tchapwo1/shopify-fraud-edge-middleware" target="_blank">Edge Middleware Repo</a>
     </div>
   </footer>
 
@@ -914,7 +914,7 @@ Shopify Risk Operations`
 
     function submitEmailCapture() {
       const email = document.getElementById('captureEmail').value;
-      const domain = document.getElementById('captureDomain').value || 'your store';
+      const domain = document.getElementById('captureDomain').value || 'yourbrand.com';
       const isSubscribed = document.getElementById('newsletterOptin').checked;
 
       if (!email || !email.includes('@')) {
@@ -923,7 +923,50 @@ Shopify Risk Operations`
       }
       
       const newsletterMsg = isSubscribed ? ' and subscribed to The Tcha Defense Dispatch™' : '';
-      alert(`Success! Reinstatement pack & SOP templates dispatched to ${email}${newsletterMsg}. Protecting ${domain}.`);
+      
+      // Generate instant download pack
+      const packContent = `# TCHA BRAND PROTECTION & REINSTATEMENT PACK
+Target Domain: ${domain}
+Subscriber Email: ${email}
+Timestamp: ${new Date().toISOString()}
+
+---
+
+## 1. THE 8-POINT INVOICE COMPLIANCE CHECKLIST
+Before submitting any supplier invoice to Amazon or Shopify Seller Performance:
+[✓] Criterion 1: Issued within the last 365 days.
+[✓] Criterion 2: Supplier company name, verifiable physical address, working phone, and website.
+[✓] Criterion 3: Buyer entity name matches Legal Entity in Seller Central exactly.
+[✓] Criterion 4: Buyer physical address matches Legal Entity address in Seller Central.
+[✓] Criterion 5: Quantity of items matches or exceeds trailing 365-day sales volume.
+[✓] Criterion 6: Itemized line items showing description, SKU/model, and unit price.
+[✓] Criterion 7: Verifiable payment terms (Net 30, Wire Transfer confirmation, Credit Card receipt).
+[✓] Criterion 8: PDF format, original high-resolution, zero tampering, zero digital markups.
+
+---
+
+## 2. STANDARD ROOT CAUSE TEMPLATE (SECTION 3 BSA)
+"On [Date], our inventory intake team failed to execute protocol SOP-PROC-04. Specifically, procurement sourced ASIN [ASIN] relying on distributor wholesale invoices without verifying whether the supplier possessed an active, direct Letter of Authorization (LOA) from the trademark owner."
+
+---
+
+## 3. DOMAIN SPOOFING & SQUATTING DEFENSE (PRE-Q4)
+• Implement DMARC policy with p=reject.
+• Audit typosquatted domains on .co, .store, .shop.
+• Deploy Cloudflare edge screening for bot traffic.
+
+Need immediate forensic help or invoice review?
+Direct contact: security@tchaprotection.com | https://tchapwo1.github.io/marketplace-suspension-recovery/`;
+
+      const blob = new Blob([packContent], { type: 'text/markdown;charset=utf-8;' });
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = `Tcha-Reinstatement-SOP-Pack-${domain.replace(/[^a-z0-9]/gi, '_')}.md`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+
+      alert(`Success! Reinstatement pack & SOP templates dispatched to ${email}${newsletterMsg}. File download initiated for ${domain}.`);
       closeModal();
     }
   </script>
