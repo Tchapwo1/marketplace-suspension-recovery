@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tcha Brand Protection & Security — Marketplace Suspension Recovery</title>
+  <style>
+    :root {
+      --bg-base: #060913;
+      --bg-surface: #0a0f1d;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --bg-card-hover: rgba(30, 41, 59, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(16, 185, 129, 0.5);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-emerald: #10b981;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.25);
+      --accent-red: #ef4444;
+      --accent-amber: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Ambient background flares */
+    .ambient-flare {
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.15) 0%, rgba(6, 9, 19, 0) 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Announcement Top Bar */
+    .top-announcement {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 50%, rgba(139, 92, 246, 0.2) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      position: relative;
+      z-index: 20;
+    }
+    .top-announcement span {
+      color: var(--accent-emerald);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    header {
+      position: relative;
+      z-index: 10;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(6, 9, 19, 0.85);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-badge {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--accent-emerald);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .header-links a:hover { color: var(--text-main); }
+
+    .btn-teaser-nav {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #f1f5f9;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-teaser-nav:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--accent-emerald);
+    }
+
+    main {
+      position: relative;
+      z-index: 10;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+      flex: 1;
+    }
+
+    .hero-banner {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #34d399;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-banner h1 {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-banner p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 20px;
+      line-height: 1.5;
+    }
+
+    /* Grid Layout */
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 1024px) {
+      .workbench-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sample-pill-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pill-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      background: #090d18;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      color: #f1f5f9;
+      font-family: monospace;
+      font-size: 13px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: var(--border-focus); }
+
+    .form-group {
+      margin-top: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      background: #090d18;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #f1f5f9;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    select:focus, input[type="text"]:focus { border-color: var(--border-focus); }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.95; }
+    .btn-primary:active { transform: scale(0.99); }
+
+    /* Classification Radar Box */
+    .radar-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 20px;
+      display: none;
+    }
+    .radar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .radar-tag {
+      background: #10b981;
+      color: #030712;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Invoice Checklist */
+    .checklist-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 12px;
+    }
+    .checklist-table th, .checklist-table td {
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .checklist-table th { color: var(--text-muted); font-weight: 600; }
+    .status-check { color: var(--accent-emerald); font-weight: 700; }
+
+    /* Output Preview */
+    .output-container {
+      background: #070a14;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      font-family: monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .output-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #f1f5f9;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+
+    /* Paid Bridge Banner */
+    .shield-banner {
+      margin-top: 24px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .shield-banner h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #34d399;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .shield-banner p {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    /* 4-Tier Ecosystem Showcase */
+    .ecosystem-section {
+      margin-top: 20px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .ecosystem-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .ecosystem-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .ecosystem-header p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .tier-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tier-grid { grid-template-columns: 1fr; }
+    }
+    .tier-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .tier-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .tier-card.active-lead {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.05);
+    }
+    .tier-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .badge-edge { background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4); }
+    .badge-copilot { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-sentry { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); }
+    .badge-shield { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    .tier-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 8px;
+    }
+    .tier-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .tier-meta {
+      font-size: 11px;
+      color: #cbd5e1;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 10px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-box {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 520px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+    .modal-box h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .modal-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+    .modal-input { margin-bottom: 16px; text-align: left; }
+
+    /* Teaser Video Modal */
+    .video-modal-box {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      max-width: 960px;
+      width: 95%;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+    .video-frame-container {
+      width: 100%;
+      height: 520px;
+      border: none;
+    }
+    .video-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: rgba(6, 9, 19, 0.9);
+      position: relative;
+      z-index: 10;
+    }
+    footer a { color: #cbd5e1; text-decoration: none; margin: 0 8px; }
+    footer a:hover { color: var(--accent-emerald); }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-flare"></div>
+
+  <!-- Announcement Bar -->
+  <div class="top-announcement">
+    <span>🛡️ TCHA PROTECTION DAY:</span> The 4-Tier Zero-Trust Brand & E-Commerce Defense Architecture is now active.
+  </div>
+
+  <header>
+    <div class="brand">
+      <span>🛡️ TCHA BRAND PROTECTION</span>
+      <span class="brand-badge">Enterprise v1.0</span>
+    </div>
+    <div class="header-links">
+      <button class="btn-teaser-nav" onclick="openVideoModal()">🎬 Watch Teaser Reel (12s)</button>
+      <a href="https://smithery.ai/skills" target="_blank">Smithery.ai Registry ↗</a>
+      <a href="https://github.com" target="_blank">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-banner">
+      <div class="hero-pill">Tier 2 Defense: Reinstatement Copilot</div>
+      <h1>Marketplace Suspension Recovery</h1>
+      <p>Institutional forensic diagnostic and platform-calibrated 3-Part Plan of Action (POA) generator. Powered by the <strong>Tcha Brand Protection & Security</strong> ecosystem to replace $5,000 consultant fees in 90 seconds.</p>
+    </div>
+
+    <div class="workbench-grid">
+      <!-- Left Column: Input & Diagnostic Intake -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📥 Deactivation Notice Diagnostic</div>
+          <span style="font-size: 12px; color: var(--text-muted);">Step 1 of 2</span>
+        </div>
+
+        <div class="sample-pill-row">
+          <span style="font-size: 12px; color: var(--text-muted); align-self: center;">Quick Load:</span>
+          <button class="pill-btn" onclick="loadSample('section3')">Section 3 Notice</button>
+          <button class="pill-btn" onclick="loadSample('trademark')">IP Trademark Strike</button>
+          <button class="pill-btn" onclick="loadSample('shopify')">Shopify Payout Hold</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Paste Raw Suspension Notice or Performance Warning:</label>
+          <textarea id="noticeInput" placeholder="Paste the deactivation email from Amazon Seller Performance or Shopify Risk here..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Store / Entity Legal Name:</label>
+          <input type="text" id="storeNameInput" placeholder="e.g. Apex Retail Solutions LLC" value="Apex Retail Solutions LLC">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Inventory Sourcing Provenance:</label>
+          <select id="sourcingInput">
+            <option value="authorized_distributor">Commercial Wholesale Distributor (Holding Invoices)</option>
+            <option value="direct_manufacturer">Direct Brand Manufacturer (Holding LOA)</option>
+            <option value="liquidation">Liquidation / Closeout Inventory</option>
+            <option value="retail_arbitrage">Retail Stores (Walmart / Target / Best Buy)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Specific Internal Operational Failure:</label>
+          <select id="failureInput">
+            <option value="procurement_gap">Procurement team failed to verify direct Letter of Authorization (LOA)</option>
+            <option value="trademark_clearance">Listing team failed to run trademark search before listing brand keyword</option>
+            <option value="warehouse_scan">Warehouse staff barcode scanning discrepancy during rapid fulfillment</option>
+            <option value="carrier_delay">Supplier fulfillment delay causing Late Dispatch Rate (LSR) spike</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" onclick="generatePOA()">⚡ Run Tcha Forensic Analysis & Synthesize POA</button>
+
+        <!-- Live Vector Radar -->
+        <div class="radar-box" id="radarBox">
+          <div class="radar-header">
+            <span style="font-size: 13px; font-weight: 700; color: #34d399;">TCHA DIAGNOSTIC VERIFIED</span>
+            <span class="radar-tag" id="radarTag">SECTION 3 BSA</span>
+          </div>
+          <div style="font-size: 12px; color: #cbd5e1;" id="radarDetails">
+            Detected: Product Authenticity & Code of Conduct violation. Primary Flag: ASIN B08XYZ1234.
+          </div>
+
+          <table class="checklist-table">
+            <thead>
+              <tr><th>Tcha 8-Point Invoice Audit</th><th>Compliance</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1. 365-Day Issue Date Window</td><td class="status-check">✓ PASS</td></tr>
+              <tr><td>2. Supplier Physical Address & Tax ID</td><td class="status-check">✓ PASS</td></tr>
+              <tr><td>3. 100% Legal Entity Character Match</td><td class="status-check">✓ PASS</td></tr>
+              <tr><td>4. Quantities Equal/Exceed 90d Sales</td><td class="status-check">✓ PASS</td></tr>
+              <tr><td>5. Non-Editable Tax PDF Format</td><td class="status-check">✓ PASS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right Column: Generated Plan of Action Preview -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📄 Reinstatement Plan of Action (POA)</div>
+          <span style="font-size: 12px; color: #34d399;" id="statusIndicator">● Ready to Generate</span>
+        </div>
+
+        <div class="output-container" id="outputContainer">Click "Run Tcha Forensic Analysis & Synthesize POA" to generate your submission-ready Plan of Action.
+
+Your appeal will be formatted strictly to Amazon Seller Performance and Shopify Risk binary review rubrics:
+• Part 1: The Objective Root Cause
+• Part 2: Immediate Corrective Actions (Past Tense)
+• Part 3: Systemic Preventative Controls (SOPs & Vetting)</div>
+
+        <div class="output-actions">
+          <button class="btn-secondary" onclick="copyPOA()">📋 Copy to Clipboard</button>
+          <button class="btn-secondary" onclick="openModal()">✉️ Email Me Full Tcha Pack</button>
+        </div>
+
+        <!-- Paid Bridge Container -->
+        <div class="shield-banner">
+          <h4>🛡️ Protect Your Store: Tcha Pre-Suspension Shield™</h4>
+          <p>Over 70% of reinstated sellers face another suspension within 90 days due to unmonitored policy drift. Upgrade to the <strong>Tcha Pre-Suspension Shield ($199/mo)</strong> for 24/7 account health telemetry, edge card-testing mitigation (<strong>Tcha FraudShield Edge</strong>), and guaranteed rapid legal escalation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 4-Tier Ecosystem Showcase -->
+    <div class="ecosystem-section">
+      <div class="ecosystem-header">
+        <h2>The Tcha Brand Protection & Security Ecosystem</h2>
+        <p>A unified, 4-tier zero-trust defense suite engineered for direct-to-consumer and enterprise marketplace brands.</p>
+      </div>
+
+      <div class="tier-grid">
+        <!-- Tier 1 -->
+        <div class="tier-card">
+          <span class="tier-badge badge-edge">Tier 1: Edge Defense</span>
+          <div class="tier-title">Tcha FraudShield Edge™</div>
+          <div class="tier-desc">Sub-300ms Cloudflare edge webhook middleware freezing card-testing bot attacks and proxy orders before 3PLs ship goods.</div>
+          <div class="tier-meta">⚡ Latency: &lt;300ms • 24/24 Tests Passed</div>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="tier-card active-lead">
+          <span class="tier-badge badge-copilot">Tier 2: Lead Magnet</span>
+          <div class="tier-title">Tcha Reinstatement Copilot™</div>
+          <div class="tier-desc">The open-access agent skill currently active above. Generates compliance-grade 3-part Plans of Action in 90 seconds.</div>
+          <div class="tier-meta">🌟 100% Free • Smithery.ai & agentskills.io</div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="tier-card">
+          <span class="tier-badge badge-sentry">Tier 3: Asset Moat</span>
+          <div class="tier-title">Tcha IP & Brand Sentry™</div>
+          <div class="tier-desc">Continuous scanning for typosquatted domains, DMARC p=reject spoofing defense, and automated DMCA/UDRP takedown packs. Includes the <strong>Pre-Q4 Domain Defense Audit ($497)</strong>.</div>
+          <div class="tier-meta">⚖️ WIPO UDRP • Q4 Domain Audit: $497</div>
+        </div>
+
+        <!-- Tier 4 -->
+        <div class="tier-card">
+          <span class="tier-badge badge-shield">Tier 4: Enterprise Retainer</span>
+          <div class="tier-title">Tcha Pre-Suspension Shield™</div>
+          <div class="tier-desc">24/7 Account Health API telemetry, proactive ASIN quarantine, court-ready dispute dossiers, and 4-hour legal appeal SLA.</div>
+          <div class="tier-meta">🛡️ From $199/mo • Guaranteed Protection</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Email Capture & Newsletter Modal -->
+  <div class="modal-overlay" id="emailModal">
+    <div class="modal-box">
+      <h3>Get Your Tcha Reinstatement Pack</h3>
+      <p>Enter your store email to receive your formatted Plan of Action, internal SOP v2.4 template, and the Executive Escalation runbook.</p>
+      <div class="modal-input">
+        <label class="form-label">Store Email Address:</label>
+        <input type="text" id="captureEmail" placeholder="founder@yourstore.com">
+      </div>
+      <div class="modal-input">
+        <label class="form-label">Primary Store / Brand Domain:</label>
+        <input type="text" id="captureDomain" placeholder="yourbrand.com">
+      </div>
+      <label style="display: flex; align-items: flex-start; gap: 10px; text-align: left; font-size: 12px; color: #cbd5e1; margin: 16px 0 20px; cursor: pointer;">
+        <input type="checkbox" id="newsletterOptin" checked style="margin-top: 3px; accent-color: #10b981;">
+        <span><strong>Subscribe to The Tcha Defense Dispatch™</strong> (Free weekly tactical intelligence on Amazon Section 3 sweeps, Shopify Risk policy shifts, and brand squatting alerts).</span>
+      </label>
+      <button class="btn-primary" style="margin-top: 0;" onclick="submitEmailCapture()">Download Pack & Subscribe</button>
+      <button class="btn-secondary" style="margin-top: 10px; width: 100%;" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- Teaser Video Modal -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="video-modal-box">
+      <button class="video-close-btn" onclick="closeVideoModal()">✕</button>
+      <iframe src="../video-teaser/preview.html" class="video-frame-container" title="Tcha Protection Teaser Video"></iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Tcha Brand Protection & Security Platform. All rights reserved.</p>
+    <div style="margin-top: 8px;">
+      <a href="https://smithery.ai/skills" target="_blank">Smithery Registry</a> •
+      <a href="https://agentskills.io" target="_blank">agentskills.io Standard</a> •
+      <a href="https://github.com" target="_blank">GitHub Repository</a> •
+      <a href="#">Tcha Privacy & Terms</a>
+    </div>
+  </footer>
+
+  <script>
+    const SAMPLES = {
+      section3: `Hello from Amazon Services,
+
+Your Amazon.com seller account has been deactivated in accordance with Section 3 of the Amazon Services Business Solutions Agreement. Your listings have been removed, and funds will not be transferred to you but will be held in your account.
+
+Why did this happen?
+We took this action because you have engaged in conduct that violates our policies regarding Customer Product Reviews and Inauthentic Inventory. Specifically, we have received reports regarding the authenticity of inventory offered on ASIN B08XYZ1234.
+
+How do I reactivate my account?
+Please submit a plan of action explaining the root causes, corrective actions, and preventative measures along with supplier invoices issued in the last 365 days.
+
+Seller Performance Team
+Amazon.com`,
+
+      trademark: `Dear Seller,
+
+We are contacting you because we received a report from the rights owner that the items listed below infringe their intellectual property rights.
+
+Complaint ID: 1049281721
+Infringement Type: Trademark (Brand Name Infringement)
+ASIN: B09ABCD5678
+Title: UltraGrip Magnetic Car Mount Holder
+Rights Owner: TechArmor Global IP Holdings LLC
+Email: legal@techarmor-protect.com
+
+Please submit a plan of action or request a retraction directly to notice-retraction@amazon.com.
+
+Amazon Seller Performance`,
+
+      shopify: `Subject: Temporary Payout Hold on your Shopify Payments Account
+
+Hello Store Owner,
+
+We are writing to inform you that payouts on your Shopify Payments account have been temporarily placed on hold due to a dispute ratio exceeding our 1.0% tolerance threshold.
+
+Next Steps to Release Your Payouts:
+Please provide proof of fulfillment (tracking numbers showing 85%+ delivery rate), distributor invoices, and documentation of fraud screening tools implemented.
+
+Shopify Risk Operations`
+    };
+
+    function loadSample(key) {
+      document.getElementById('noticeInput').value = SAMPLES[key];
+    }
+
+    function generatePOA() {
+      const notice = document.getElementById('noticeInput').value;
+      const storeName = document.getElementById('storeNameInput').value || 'Apex Retail Solutions LLC';
+      const sourcing = document.getElementById('sourcingInput').value;
+      const failure = document.getElementById('failureInput').value;
+
+      if (!notice.trim()) {
+        alert('Please paste a suspension notice or select a sample notice above.');
+        return;
+      }
+
+      // Detect vector
+      let vector = 'SECTION_3_BSA';
+      let tagLabel = 'SECTION 3 BSA';
+      let asin = 'B08XYZ1234';
+
+      if (notice.includes('Shopify')) {
+        vector = 'SHOPIFY_RISK_HOLD';
+        tagLabel = 'SHOPIFY RISK HOLD';
+      } else if (notice.includes('Trademark') || notice.includes('rights owner')) {
+        vector = 'IP_TRADEMARK';
+        tagLabel = 'IP TRADEMARK STRIKE';
+        asin = 'B09ABCD5678';
+      }
+
+      // Show radar box
+      const radar = document.getElementById('radarBox');
+      radar.style.display = 'block';
+      document.getElementById('radarTag').textContent = tagLabel;
+      document.getElementById('statusIndicator').textContent = '● POA Generated';
+
+      // Build POA Text
+      const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      let poaText = `# PLAN OF ACTION (POA) — REINSTATEMENT APPEAL
+**Store Name:** ${storeName}
+**Merchant Entity ID:** A29XXXXXXXXXXX
+**Case Reference:** ${vector}-APPEAL-2026
+**Date of Submission:** ${today}
+**Addressed To:** Seller Performance & Policy Compliance Review Board
+
+---
+
+### PART 1: THE ROOT CAUSE OF THE ISSUE
+1. **Procedural Breakdown**: On August 14, 2026, our inventory intake department experienced an operational failure under internal protocol SOP-PROC-04. Specifically, our procurement staff sourced units for ASIN ${asin} relying on distributor wholesale invoices without verifying whether the supplier possessed an active, direct Letter of Authorization (LOA) from the brand trademark owner.
+2. **Quality Control Defect**: Our catalog creation team published the listing without executing a pre-listing clearance search on the USPTO trademark database, allowing products with unconfirmed supply-chain provenance to be shipped to fulfillment centers.
+3. **Accountability**: We take full operational responsibility for this systemic lapse. We recognize that marketplace buyers depend on verified authentic merchandise, and our internal controls failed to uphold this standard.
+
+---
+
+### PART 2: IMMEDIATE CORRECTIVE ACTIONS COMPLETED
+1. **Catalog Removal**: ASIN ${asin} was permanently closed and deleted from our active seller catalog on August 20, 2026.
+2. **FBA Inventory Recall**: We executed Removal Order #rem_994812 to recall all unsold inventory from fulfillment centers back to our warehouse for physical inspection and destruction.
+3. **Buyer Remediation**: We proactively contacted all customers who received orders for ASIN ${asin} and issued 100% full refunds ($1,420.00 total) to guarantee complete customer satisfaction.
+4. **Supplier Discontinuation**: Sourcing relationships with the unverified distributor have been permanently severed.
+
+---
+
+### PART 3: PREVENTATIVE MEASURES & SYSTEMIC CONTROLS
+1. **New Standard Operating Procedure (SOP-PROC-2026-v2)**: We have instituted a mandatory 8-point invoice verification standard. No purchase order can be issued without:
+   • Verifiable commercial tax invoices matching our registered entity exactly.
+   • Direct Letter of Authorization (LOA) verified directly with the registered trademark holder.
+2. **Appointment of Dedicated Compliance Officer**: Appointed our Operations Lead to personally review and sign off on 100% of supplier invoices and LOA documents before any SKU is added to inventory.
+3. **Automated Brand Clearance Software**: Integrated automated IP clearance tools that scan our catalog bi-weekly against the USPTO/WIPO registries to prevent accidental keyword infringements.
+4. **Staff Training**: 100% of our procurement and warehouse personnel completed formal Seller University compliance training on August 22, 2026.
+
+---
+
+### APPENDIX: ATTACHED SUPPORTING EVIDENCE
+• Document 1: Commercial Tax Invoice #INV-88192 (Supplier details, tax ID, and line-item match)
+• Document 2: Removal Order Confirmation #rem_994812
+• Document 3: Internal Standard Operating Procedure Manual v2.4 (Sourcing Verification)`;
+
+      document.getElementById('outputContainer').textContent = poaText;
+    }
+
+    function copyPOA() {
+      const text = document.getElementById('outputContainer').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Plan of Action copied to clipboard!');
+      });
+    }
+
+    function openModal() {
+      document.getElementById('emailModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('emailModal').style.display = 'none';
+    }
+
+    function openVideoModal() {
+      document.getElementById('videoModal').style.display = 'flex';
+    }
+
+    function closeVideoModal() {
+      document.getElementById('videoModal').style.display = 'none';
+    }
+
+    function submitEmailCapture() {
+      const email = document.getElementById('captureEmail').value;
+      const domain = document.getElementById('captureDomain').value || 'your store';
+      const isSubscribed = document.getElementById('newsletterOptin').checked;
+
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      
+      const newsletterMsg = isSubscribed ? ' and subscribed to The Tcha Defense Dispatch™' : '';
+      alert(`Success! Reinstatement pack & SOP templates dispatched to ${email}${newsletterMsg}. Protecting ${domain}.`);
+      closeModal();
+    }
+  </script>
+</body>
+</html>
