@@ -712,8 +712,8 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
         <div class="tier-card">
           <span class="tier-badge badge-sentry">Tier 3: Asset Moat</span>
           <div class="tier-title">Tcha IP & Brand Sentry™</div>
-          <div class="tier-desc">Continuous scanning for typosquatted domains, DMARC p=reject spoofing defense, and automated DMCA/UDRP takedown packs.</div>
-          <div class="tier-meta">⚖️ WIPO UDRP & DMCA Aligned</div>
+          <div class="tier-desc">Continuous scanning for typosquatted domains, DMARC p=reject spoofing defense, and automated DMCA/UDRP takedown packs. Includes the <strong>Pre-Q4 Domain Defense Audit ($497)</strong>.</div>
+          <div class="tier-meta">⚖️ WIPO UDRP • Q4 Domain Audit: $497</div>
         </div>
 
         <!-- Tier 4 -->
@@ -727,15 +727,24 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
     </div>
   </main>
 
-  <!-- Email Capture Modal -->
+  <!-- Email Capture & Newsletter Modal -->
   <div class="modal-overlay" id="emailModal">
     <div class="modal-box">
       <h3>Get Your Tcha Reinstatement Pack</h3>
       <p>Enter your store email to receive your formatted Plan of Action, internal SOP v2.4 template, and the Executive Escalation runbook.</p>
       <div class="modal-input">
+        <label class="form-label">Store Email Address:</label>
         <input type="text" id="captureEmail" placeholder="founder@yourstore.com">
       </div>
-      <button class="btn-primary" style="margin-top: 0;" onclick="submitEmailCapture()">Download & Send Pack</button>
+      <div class="modal-input">
+        <label class="form-label">Primary Store / Brand Domain:</label>
+        <input type="text" id="captureDomain" placeholder="yourbrand.com">
+      </div>
+      <label style="display: flex; align-items: flex-start; gap: 10px; text-align: left; font-size: 12px; color: #cbd5e1; margin: 16px 0 20px; cursor: pointer;">
+        <input type="checkbox" id="newsletterOptin" checked style="margin-top: 3px; accent-color: #10b981;">
+        <span><strong>Subscribe to The Tcha Defense Dispatch™</strong> (Free weekly tactical intelligence on Amazon Section 3 sweeps, Shopify Risk policy shifts, and brand squatting alerts).</span>
+      </label>
+      <button class="btn-primary" style="margin-top: 0;" onclick="submitEmailCapture()">Download Pack & Subscribe</button>
       <button class="btn-secondary" style="margin-top: 10px; width: 100%;" onclick="closeModal()">Close</button>
     </div>
   </div>
@@ -905,11 +914,16 @@ Shopify Risk Operations`
 
     function submitEmailCapture() {
       const email = document.getElementById('captureEmail').value;
+      const domain = document.getElementById('captureDomain').value || 'your store';
+      const isSubscribed = document.getElementById('newsletterOptin').checked;
+
       if (!email || !email.includes('@')) {
         alert('Please enter a valid email address.');
         return;
       }
-      alert(`Success! Reinstatement pack & SOP templates dispatched to ${email}. Check your inbox.`);
+      
+      const newsletterMsg = isSubscribed ? ' and subscribed to The Tcha Defense Dispatch™' : '';
+      alert(`Success! Reinstatement pack & SOP templates dispatched to ${email}${newsletterMsg}. Protecting ${domain}.`);
       closeModal();
     }
   </script>
