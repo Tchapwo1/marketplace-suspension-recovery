@@ -1,0 +1,18 @@
+Hello from Amazon Services,
+
+Your Amazon.com seller account has been deactivated in accordance with Section 3 of the Amazon Services Business Solutions Agreement. Your listings have been removed, and funds will not be transferred to you but will be held in your account while we work with you to address this issue.
+
+Why did this happen?
+We took this action because you have engaged in conduct that violates our policies regarding Customer Product Reviews and Inauthentic Inventory. Specifically, we have received reports regarding the authenticity of inventory offered on ASIN B08XYZ1234.
+
+How do I reactivate my account?
+To reactivate your selling account, please submit a plan of action that explains:
+- The root cause(s) that led to the violation of our policies.
+- The actions you have taken to resolve the violation.
+- The steps you have taken to prevent similar violations in the future.
+
+Along with your plan of action, please submit copies of invoices or receipts from your supplier issued in the last 365 days for the ASINs listed above.
+
+Sincerely,
+Seller Performance Team
+Amazon.com

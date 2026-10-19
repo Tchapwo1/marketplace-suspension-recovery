@@ -1,0 +1,17 @@
+Subject: Temporary Payout Hold on your Shopify Payments Account
+
+Hello Store Owner,
+
+We are writing to inform you that payouts on your Shopify Payments account have been temporarily placed on hold. Your online store remains active and can continue to accept orders, but funds from card sales will not be disbursed to your bank account at this time.
+
+Why is this happening?
+Our automated risk monitoring detected a rapid spike in chargeback dispute frequency and unfulfilled order volume over the trailing 14-day period, exceeding our 1.0% dispute tolerance threshold.
+
+Next Steps to Release Your Payouts:
+Please reply to this ticket and provide:
+1. Proof of fulfillment (valid carrier tracking numbers showing delivery for at least 85% of pending orders).
+2. Sourcing documentation or distributor invoices confirming inventory availability.
+3. A description of the customer service and fraud screening measures you have implemented to prevent future chargeback spikes.
+
+Thank you,
+Shopify Risk Operations
