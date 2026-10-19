@@ -1,0 +1,24 @@
+# Smithery.ai Registry Manifest
+# Specification: https://smithery.ai/docs
+name: marketplace-suspension-recovery
+displayName: Marketplace Account & ASIN Suspension Recovery
+version: 1.0.0
+description: Free, compliance-grade Plan of Action (POA) generator for Amazon and Shopify sellers facing account suspension, Section 3 deactivations, IP strikes, or payout holds.
+repository: https://github.com/your-org/marketplace-suspension-recovery
+author: Antigravity Protection Platform
+license: MIT
+tags:
+  - amazon-fba
+  - shopify-risk
+  - suspension-appeal
+  - plan-of-action
+  - seller-reinstatement
+  - e-commerce-defense
+entrypoint: SKILL.md
+standards:
+  - agentskills.io/v1
+capabilities:
+  - notice-parsing
+  - policy-classification
+  - invoice-verification
+  - poa-synthesis
