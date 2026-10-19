@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marketplace Suspension Recovery — Free Plan of Action (POA) Generator</title>
+  <title>Tcha Brand Protection & Security — Marketplace Suspension Recovery</title>
   <style>
     :root {
       --bg-base: #060913;
+      --bg-surface: #0a0f1d;
       --bg-card: rgba(15, 23, 42, 0.75);
       --bg-card-hover: rgba(30, 41, 59, 0.85);
       --border: rgba(255, 255, 255, 0.08);
@@ -18,6 +19,7 @@
       --accent-red: #ef4444;
       --accent-amber: #f59e0b;
       --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,13 +48,31 @@
       pointer-events: none;
     }
 
+    /* Announcement Top Bar */
+    .top-announcement {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.2) 0%, rgba(6, 182, 212, 0.2) 50%, rgba(139, 92, 246, 0.2) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      position: relative;
+      z-index: 20;
+    }
+    .top-announcement span {
+      color: var(--accent-emerald);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
     header {
       position: relative;
       z-index: 10;
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(12px);
-      background: rgba(6, 9, 19, 0.8);
-      padding: 18px 32px;
+      background: rgba(6, 9, 19, 0.85);
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -63,7 +83,7 @@
       align-items: center;
       gap: 12px;
       font-weight: 800;
-      font-size: 19px;
+      font-size: 20px;
       letter-spacing: -0.5px;
     }
 
@@ -79,6 +99,12 @@
       letter-spacing: 1px;
     }
 
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .header-links a {
       color: var(--text-muted);
       text-decoration: none;
@@ -88,23 +114,59 @@
     }
     .header-links a:hover { color: var(--text-main); }
 
+    .btn-teaser-nav {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #f1f5f9;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-teaser-nav:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--accent-emerald);
+    }
+
     main {
       position: relative;
       z-index: 10;
       max-width: 1280px;
       width: 100%;
       margin: 0 auto;
-      padding: 40px 24px 80px;
+      padding: 36px 24px 80px;
       flex: 1;
     }
 
     .hero-banner {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #34d399;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .hero-banner h1 {
-      font-size: 42px;
+      font-size: 44px;
       font-weight: 900;
       letter-spacing: -1px;
       line-height: 1.15;
@@ -115,10 +177,11 @@
     }
 
     .hero-banner p {
-      font-size: 18px;
+      font-size: 17px;
       color: var(--text-muted);
-      max-width: 760px;
-      margin: 0 auto;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      line-height: 1.5;
     }
 
     /* Grid Layout */
@@ -127,6 +190,7 @@
       grid-template-columns: 1fr 1.1fr;
       gap: 28px;
       align-items: start;
+      margin-bottom: 48px;
     }
 
     @media (max-width: 1024px) {
@@ -338,12 +402,93 @@
       line-height: 1.45;
     }
 
+    /* 4-Tier Ecosystem Showcase */
+    .ecosystem-section {
+      margin-top: 20px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .ecosystem-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .ecosystem-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .ecosystem-header p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .tier-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tier-grid { grid-template-columns: 1fr; }
+    }
+    .tier-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .tier-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .tier-card.active-lead {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.05);
+    }
+    .tier-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .badge-edge { background: rgba(6, 182, 212, 0.2); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4); }
+    .badge-copilot { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-sentry { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); }
+    .badge-shield { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    .tier-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 8px;
+    }
+    .tier-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .tier-meta {
+      font-size: 11px;
+      color: #cbd5e1;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 10px;
+    }
+
     /* Modal */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
       z-index: 100;
       align-items: center;
@@ -354,7 +499,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 32px;
-      max-width: 480px;
+      max-width: 520px;
       width: 90%;
       text-align: center;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
@@ -362,26 +507,82 @@
     .modal-box h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
     .modal-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
     .modal-input { margin-bottom: 16px; text-align: left; }
+
+    /* Teaser Video Modal */
+    .video-modal-box {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      max-width: 960px;
+      width: 95%;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+    .video-frame-container {
+      width: 100%;
+      height: 520px;
+      border: none;
+    }
+    .video-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      background: rgba(6, 9, 19, 0.9);
+      position: relative;
+      z-index: 10;
+    }
+    footer a { color: #cbd5e1; text-decoration: none; margin: 0 8px; }
+    footer a:hover { color: var(--accent-emerald); }
   </style>
 </head>
 <body>
 
   <div class="ambient-flare"></div>
 
+  <!-- Announcement Bar -->
+  <div class="top-announcement">
+    <span>🛡️ TCHA PROTECTION DAY:</span> The 4-Tier Zero-Trust Brand & E-Commerce Defense Architecture is now active.
+  </div>
+
   <header>
     <div class="brand">
-      <span>🛡️ Antigravity Protection Platform</span>
-      <span class="brand-badge">Smithery v1.0</span>
+      <span>🛡️ TCHA BRAND PROTECTION</span>
+      <span class="brand-badge">Enterprise v1.0</span>
     </div>
     <div class="header-links">
+      <button class="btn-teaser-nav" onclick="openVideoModal()">🎬 Watch Teaser Reel (12s)</button>
       <a href="https://smithery.ai/skills" target="_blank">Smithery.ai Registry ↗</a>
+      <a href="https://github.com" target="_blank">GitHub ↗</a>
     </div>
   </header>
 
   <main>
     <div class="hero-banner">
+      <div class="hero-pill">Tier 2 Defense: Reinstatement Copilot</div>
       <h1>Marketplace Suspension Recovery</h1>
-      <p>Instant forensic diagnostic and platform-calibrated 3-Part Plan of Action (POA) generator. Replaces $5,000 consultant fees in 90 seconds.</p>
+      <p>Institutional forensic diagnostic and platform-calibrated 3-Part Plan of Action (POA) generator. Powered by the <strong>Tcha Brand Protection & Security</strong> ecosystem to replace $5,000 consultant fees in 90 seconds.</p>
     </div>
 
     <div class="workbench-grid">
@@ -395,7 +596,7 @@
         <div class="sample-pill-row">
           <span style="font-size: 12px; color: var(--text-muted); align-self: center;">Quick Load:</span>
           <button class="pill-btn" onclick="loadSample('section3')">Section 3 Notice</button>
-          <button class="pill-btn" onclick="loadSample('trademark')">IP Trademark Notice</button>
+          <button class="pill-btn" onclick="loadSample('trademark')">IP Trademark Strike</button>
           <button class="pill-btn" onclick="loadSample('shopify')">Shopify Payout Hold</button>
         </div>
 
@@ -429,12 +630,12 @@
           </select>
         </div>
 
-        <button class="btn-primary" onclick="generatePOA()">⚡ Run Forensic Analysis & Synthesize POA</button>
+        <button class="btn-primary" onclick="generatePOA()">⚡ Run Tcha Forensic Analysis & Synthesize POA</button>
 
         <!-- Live Vector Radar -->
         <div class="radar-box" id="radarBox">
           <div class="radar-header">
-            <span style="font-size: 13px; font-weight: 700; color: #34d399;">CLASSIFICATION CONFIRMED</span>
+            <span style="font-size: 13px; font-weight: 700; color: #34d399;">TCHA DIAGNOSTIC VERIFIED</span>
             <span class="radar-tag" id="radarTag">SECTION 3 BSA</span>
           </div>
           <div style="font-size: 12px; color: #cbd5e1;" id="radarDetails">
@@ -443,7 +644,7 @@
 
           <table class="checklist-table">
             <thead>
-              <tr><th>8-Point Amazon Invoice Rubric</th><th>Verification</th></tr>
+              <tr><th>Tcha 8-Point Invoice Audit</th><th>Compliance</th></tr>
             </thead>
             <tbody>
               <tr><td>1. 365-Day Issue Date Window</td><td class="status-check">✓ PASS</td></tr>
@@ -463,7 +664,7 @@
           <span style="font-size: 12px; color: #34d399;" id="statusIndicator">● Ready to Generate</span>
         </div>
 
-        <div class="output-container" id="outputContainer">Click "Run Forensic Analysis & Synthesize POA" to generate your submission-ready Plan of Action.
+        <div class="output-container" id="outputContainer">Click "Run Tcha Forensic Analysis & Synthesize POA" to generate your submission-ready Plan of Action.
 
 Your appeal will be formatted strictly to Amazon Seller Performance and Shopify Risk binary review rubrics:
 • Part 1: The Objective Root Cause
@@ -472,13 +673,55 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
 
         <div class="output-actions">
           <button class="btn-secondary" onclick="copyPOA()">📋 Copy to Clipboard</button>
-          <button class="btn-secondary" onclick="openModal()">✉️ Email Me Full Package</button>
+          <button class="btn-secondary" onclick="openModal()">✉️ Email Me Full Tcha Pack</button>
         </div>
 
         <!-- Paid Bridge Container -->
         <div class="shield-banner">
-          <h4>🛡️ Protect Your Account: Pre-Suspension Shield</h4>
-          <p>Over 70% of reinstated sellers face subsequent suspensions within 90 days due to unmonitored policy drift. Connect your store to our automated <strong>Account Health Telemetry & Edge Shield ($199/mo)</strong> to block fraud and stop policy strikes before Seller Performance acts.</p>
+          <h4>🛡️ Protect Your Store: Tcha Pre-Suspension Shield™</h4>
+          <p>Over 70% of reinstated sellers face another suspension within 90 days due to unmonitored policy drift. Upgrade to the <strong>Tcha Pre-Suspension Shield ($199/mo)</strong> for 24/7 account health telemetry, edge card-testing mitigation (<strong>Tcha FraudShield Edge</strong>), and guaranteed rapid legal escalation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The 4-Tier Ecosystem Showcase -->
+    <div class="ecosystem-section">
+      <div class="ecosystem-header">
+        <h2>The Tcha Brand Protection & Security Ecosystem</h2>
+        <p>A unified, 4-tier zero-trust defense suite engineered for direct-to-consumer and enterprise marketplace brands.</p>
+      </div>
+
+      <div class="tier-grid">
+        <!-- Tier 1 -->
+        <div class="tier-card">
+          <span class="tier-badge badge-edge">Tier 1: Edge Defense</span>
+          <div class="tier-title">Tcha FraudShield Edge™</div>
+          <div class="tier-desc">Sub-300ms Cloudflare edge webhook middleware freezing card-testing bot attacks and proxy orders before 3PLs ship goods.</div>
+          <div class="tier-meta">⚡ Latency: &lt;300ms • 24/24 Tests Passed</div>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="tier-card active-lead">
+          <span class="tier-badge badge-copilot">Tier 2: Lead Magnet</span>
+          <div class="tier-title">Tcha Reinstatement Copilot™</div>
+          <div class="tier-desc">The open-access agent skill currently active above. Generates compliance-grade 3-part Plans of Action in 90 seconds.</div>
+          <div class="tier-meta">🌟 100% Free • Smithery.ai & agentskills.io</div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="tier-card">
+          <span class="tier-badge badge-sentry">Tier 3: Asset Moat</span>
+          <div class="tier-title">Tcha IP & Brand Sentry™</div>
+          <div class="tier-desc">Continuous scanning for typosquatted domains, DMARC p=reject spoofing defense, and automated DMCA/UDRP takedown packs.</div>
+          <div class="tier-meta">⚖️ WIPO UDRP & DMCA Aligned</div>
+        </div>
+
+        <!-- Tier 4 -->
+        <div class="tier-card">
+          <span class="tier-badge badge-shield">Tier 4: Enterprise Retainer</span>
+          <div class="tier-title">Tcha Pre-Suspension Shield™</div>
+          <div class="tier-desc">24/7 Account Health API telemetry, proactive ASIN quarantine, court-ready dispute dossiers, and 4-hour legal appeal SLA.</div>
+          <div class="tier-meta">🛡️ From $199/mo • Guaranteed Protection</div>
         </div>
       </div>
     </div>
@@ -487,7 +730,7 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
   <!-- Email Capture Modal -->
   <div class="modal-overlay" id="emailModal">
     <div class="modal-box">
-      <h3>Get Your Reinstatement Pack</h3>
+      <h3>Get Your Tcha Reinstatement Pack</h3>
       <p>Enter your store email to receive your formatted Plan of Action, internal SOP v2.4 template, and the Executive Escalation runbook.</p>
       <div class="modal-input">
         <input type="text" id="captureEmail" placeholder="founder@yourstore.com">
@@ -496,6 +739,24 @@ Your appeal will be formatted strictly to Amazon Seller Performance and Shopify 
       <button class="btn-secondary" style="margin-top: 10px; width: 100%;" onclick="closeModal()">Close</button>
     </div>
   </div>
+
+  <!-- Teaser Video Modal -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="video-modal-box">
+      <button class="video-close-btn" onclick="closeVideoModal()">✕</button>
+      <iframe src="../video-teaser/preview.html" class="video-frame-container" title="Tcha Protection Teaser Video"></iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Tcha Brand Protection & Security Platform. All rights reserved.</p>
+    <div style="margin-top: 8px;">
+      <a href="https://smithery.ai/skills" target="_blank">Smithery Registry</a> •
+      <a href="https://agentskills.io" target="_blank">agentskills.io Standard</a> •
+      <a href="https://github.com" target="_blank">GitHub Repository</a> •
+      <a href="#">Tcha Privacy & Terms</a>
+    </div>
+  </footer>
 
   <script>
     const SAMPLES = {
@@ -632,6 +893,14 @@ Shopify Risk Operations`
 
     function closeModal() {
       document.getElementById('emailModal').style.display = 'none';
+    }
+
+    function openVideoModal() {
+      document.getElementById('videoModal').style.display = 'flex';
+    }
+
+    function closeVideoModal() {
+      document.getElementById('videoModal').style.display = 'none';
     }
 
     function submitEmailCapture() {
