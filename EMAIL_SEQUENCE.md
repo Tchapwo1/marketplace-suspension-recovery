@@ -91,7 +91,7 @@ For a one-time fee of $497, our legal and OSINT team will:
 3. **Execute WIPO UDRP & DMCA Takedown Packages** ready for immediate filing against active impostor sites.
 4. **Deliver a 6-Page Institutional Security Dossier** you can submit to merchant processors and ad platforms to protect your brand score.
 
-👉 **[Claim Your Pre-Q4 Domain Defense Audit ($497)](https://tchashield.com/domain-audit)**  
+👉 **[Claim Your Pre-Q4 Domain Defense Audit ($497)](https://buy.stripe.com/28E9AU2wX4Wl0UucZOg7e03)**  
 *(Only 10 audits conducted per week to ensure 24-hour turnaround).*
 
 To your brand's security,  
@@ -125,7 +125,7 @@ Instead of wiring $5,000 to opaque consultants who take 5 days to send you gener
 4. **Executive Escalation Runbook**: Direct submission pathways to Amazon Executive Seller Relations (`jeff@amazon.com` / `managingdirector@amazon.co.uk`) if portal appeals are blocked.
 5. **Bonus**: Includes 60 days of complimentary access to our **Pre-Suspension Shield SaaS ($398 value)** once reinstated.
 
-👉 **[Book Your 4-Hour Expedited Reinstatement Review ($997)](https://tchashield.com/priority-appeal)**
+👉 **[Book Your 4-Hour Expedited Reinstatement Review ($997)](https://buy.stripe.com/3cIfZiefF88x46Ge3Sg7e04)**
 
 We only accept 5 cases per week to maintain our 85%+ first-submission resolution rate.
 
